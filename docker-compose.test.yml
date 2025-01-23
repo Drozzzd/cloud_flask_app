@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: pytest
+    depends_on:
+      - db
+      - redis
+    environment:
+      - POSTGRES_HOST=db
+      - REDIS_HOST=redis
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=flask_db
+    ports:
+      - "5431:5432"
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

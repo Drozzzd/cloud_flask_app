@@ -95,7 +95,9 @@ def clear_user_cache(id):
 
 @app.route('/')
 def home_page():
-    return jsonify({'message': 'Welcome to main page'})
+	instance_id = os.getenv('HOSTNAME', 'unknown')
+	return f'Main Page! Instance ID: {instance_id}'
+    #return jsonify({'message': 'Welcome to main page'})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
